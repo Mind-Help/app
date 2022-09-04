@@ -10,10 +10,11 @@ import {
 import * as SplashScreen from 'expo-splash-screen'
 import { ThemeProvider } from 'styled-components'
 
-import First from './src/pages/first'
-import Home from './src/pages/home'
+import SignUp from '$pages/signup'
+import SignIn from '$pages/signin'
+// import First from './src/pages/first'
 
-import { theme } from './src/utils/theme'
+import { theme } from '$utils/theme'
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -35,8 +36,8 @@ export default function App() {
 	return (
 		<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
 			<ThemeProvider theme={theme}>
-				<StatusBar style="light" />
-				<First />
+				<StatusBar style="light" backgroundColor={theme.colors.dark1} />
+				<SignIn />
 			</ThemeProvider>
 		</View>
 	)

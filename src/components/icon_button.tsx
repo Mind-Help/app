@@ -43,8 +43,8 @@ const Text = styled.Text`
 
 const Icon = styled(Svg)`
 	position: absolute;
-	top: ${RFValue(4)}px;
-	left: ${RFValue(4)}px;
+	top: ${RFValue(8)}px;
+	left: ${RFValue(8)}px;
 	width: ${RFValue(26)}px;
 	height: ${RFValue(26)}px;
 `

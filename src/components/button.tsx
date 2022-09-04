@@ -5,35 +5,37 @@ import { RFValue } from 'react-native-responsive-fontsize'
 
 type Tprops = TouchableOpacityProps & {
 	label: string
+	backgroundColor?: string
+	color?: string
 }
 
-const Button: React.FC<Tprops> = ({ label, ...props }) => {
+const Button: React.FC<Tprops> = ({ label, color, ...props }) => {
 	return (
 		<Container {...props}>
-			<Text>{label}</Text>
+			<Text color={color}>{label}</Text>
 		</Container>
 	)
 }
 
 export default Button
 
-const Container = styled.TouchableOpacity`
-	position: relative;
-	background-color: ${({ theme }) => theme.colors.light1};
+const Container = styled.TouchableOpacity<{ backgroundColor: string }>`
+	background-color: ${({ theme, backgroundColor }) =>
+		backgroundColor || theme.colors.light1};
 	max-width: ${Dimensions.get('window').width}px;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	padding: ${RFValue(8)}px ${RFValue(72)}px;
+	padding: ${RFValue(8)}px 0;
 	border-radius: 4px;
 	border-bottom-width: 2px;
 	border-right-width: 2px;
 	border-color: ${({ theme }) => transparentize(theme.colors.dark4, 0.5)};
 `
 
-const Text = styled.Text`
+const Text = styled.Text<{ color: string }>`
 	font-family: ${({ theme }) => theme.fonts.regular};
 	font-size: ${RFValue(12)}px;
 	letter-spacing: 0.72px;
-	color: ${({ theme }) => theme.colors.dark1};
+	color: ${({ theme, color }) => color || theme.colors.dark1};
 `

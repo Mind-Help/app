@@ -1,14 +1,15 @@
-import Logo from '../../assets/vectors/logo_letters.svg'
-import GoogleSvg from '../../assets/vectors/google.svg'
-import AppleSvg from '../../assets/vectors/apple.svg'
+import Logo from '$assets/vectors/logo_letters.svg'
+import GoogleSvg from '$assets/vectors/google.svg'
+import AppleSvg from '$assets/vectors/apple.svg'
 
-import IconButton from '../../components/icon_button'
-import Button from '../../components/button'
-import TextButton from '../../components/text_button'
+import IconButton from '$components/icon_button'
+import Button from '$components/button'
+import TextButton from '$components/text_button'
 
-import { theme } from '../../utils/theme'
+import { theme } from '$utils/theme'
 
 import { ButtonsContainer, Container } from './styles'
+import { WaterMark } from '$components/water_mark'
 
 const First: React.FC = () => {
 	return (
@@ -23,6 +24,7 @@ const First: React.FC = () => {
 					label="Já tem uma conta?"
 				/>
 			</ButtonsContainer>
+			<WaterMark />
 		</Container>
 	)
 }
