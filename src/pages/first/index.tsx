@@ -10,18 +10,33 @@ import { theme } from '$utils/theme'
 
 import { ButtonsContainer, Container } from './styles'
 import { WaterMark } from '$components/water_mark'
+import { useNavigation } from '@react-navigation/native'
 
 const First: React.FC = () => {
+	const nav = useNavigation()
+	const go_to_home = () => nav.navigate('home')
+	const signup = () => nav.navigate('signup')
+	const signin = () => nav.navigate('signin')
+
 	return (
 		<Container>
 			<Logo />
 			<ButtonsContainer>
-				<IconButton icon={GoogleSvg} label="Login com Google" />
-				<IconButton icon={AppleSvg} label="Login com Apple" />
-				<Button label="Criar uma conta" />
+				<IconButton
+					icon={GoogleSvg}
+					label="Login com Google"
+					onPress={go_to_home}
+				/>
+				<IconButton
+					icon={AppleSvg}
+					label="Login com Apple"
+					onPress={go_to_home}
+				/>
+				<Button label="Criar uma conta" onPress={signup} />
 				<TextButton
 					color={theme.colors.blue4}
 					label="Já tem uma conta?"
+					onPress={signin}
 				/>
 			</ButtonsContainer>
 			<WaterMark />

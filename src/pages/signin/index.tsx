@@ -2,9 +2,11 @@ import Button from '$components/button'
 import { Input } from '$components/input'
 import { WaterMark } from '$components/water_mark'
 import { theme } from '$utils/theme'
+import { useNavigation } from '@react-navigation/native'
 import { Container, FormContainer, Heading, Logo } from './styles'
 
-const SignUp: React.FC = () => {
+const SignIn: React.FC = () => {
+	const nav = useNavigation()
 	return (
 		<Container>
 			<Logo />
@@ -22,10 +24,11 @@ const SignUp: React.FC = () => {
 					backgroundColor={theme.colors.blue3}
 					color={theme.colors.light3}
 					style={{ marginTop: 10 }}
+					onPress={() => nav.navigate('home')}
 				/>
 			</FormContainer>
 		</Container>
 	)
 }
 
-export default SignUp
+export default SignIn

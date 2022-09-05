@@ -1,4 +1,3 @@
-import { StatusBar } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 
@@ -8,7 +7,6 @@ export const Container = styled.View`
 	position: relative;
 	flex: 1;
 	background-color: ${({ theme }) => theme.colors.dark1};
-	margin-top: ${StatusBar.currentHeight}px;
 	justify-content: center;
 	align-items: center;
 	padding: 0 ${RFValue(36)}px;

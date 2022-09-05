@@ -12,6 +12,7 @@ module.exports = function (api) {
 						$pages: './src/pages',
 						$assets: './src/assets',
 						$utils: './src/utils',
+						$routes: './src/routes',
 					},
 				},
 			],

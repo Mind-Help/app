@@ -6,7 +6,8 @@
 			"$components/*": ["./src/components/*"],
 			"$pages/*": ["./src/pages/*"],
 			"$assets/*": ["./src/assets/*"],
-			"$utils/*": ["./src/utils/*"]
+			"$utils/*": ["./src/utils/*"],
+			"$routes/*": ["./src/routes/*"]
 		}
 	},
 	"extends": "expo/tsconfig.base"
