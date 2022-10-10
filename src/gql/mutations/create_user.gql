@@ -1,0 +1,5 @@
+mutation Register($data: UserIT!) {
+	createUser(data: $data) {
+		status
+	}
+}

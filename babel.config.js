@@ -13,6 +13,7 @@ module.exports = function (api) {
 						$assets: './src/assets',
 						$utils: './src/utils',
 						$routes: './src/routes',
+						$gql: './src/gql',
 					},
 				},
 			],

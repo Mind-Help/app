@@ -10,7 +10,7 @@ const SignIn: React.FC = () => {
 	return (
 		<Container>
 			<Logo />
-			<Heading>Cadastro</Heading>
+			<Heading>Entrar</Heading>
 			<WaterMark />
 			<FormContainer>
 				<Input label="Nome de usuário / Email" placeholder="John Doe" />

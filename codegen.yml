@@ -1,0 +1,9 @@
+overwrite: true
+schema: 'http://localhost:3000/'
+documents: 'src/gql/**/*.gql'
+generates:
+    src/gql/generated.tsx:
+        plugins:
+            - 'typescript'
+            - 'typescript-operations'
+            - 'typescript-react-apollo'

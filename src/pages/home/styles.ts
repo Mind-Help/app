@@ -1,12 +1,10 @@
-import { StyleSheet } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
+import { StatusBar } from 'react-native'
+import styled from 'styled-components/native'
 
-export const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	text: {
-		fontSize: 16,
-	},
-})
+export const Container = styled(LinearGradient)`
+	flex: 1;
+	background-color: ${({ theme }) => theme.colors.dark4};
+	padding-top: ${StatusBar.currentHeight}px;
+	align-items: center;
+`
