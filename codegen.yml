@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'http://localhost:3000/'
+schema: 'http://192.168.100.249:3000/'
 documents: 'src/gql/**/*.gql'
 generates:
     src/gql/generated.tsx:

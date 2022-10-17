@@ -19,7 +19,7 @@ import Routes from '$routes/index'
 import UserContextProvider from '$utils/user_context_provider'
 
 const apollo_client = new ApolloClient({
-	uri: 'http://localhost:4000/graphql',
+	uri: process.env.ENDPOINT_URL ?? 'http://192.168.100.249:3000/',
 	credentials: 'include',
 	cache: new InMemoryCache({}),
 })

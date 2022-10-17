@@ -1,5 +1,7 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { Formik } from 'formik'
+import * as yup from 'yup'
 
 import { useRegisterMutation } from '$gql/generated'
 
@@ -19,29 +21,48 @@ type FormData = {
 	phone: string
 }
 
-type Error = {
-	input: 'name' | 'email' | 'password' | 'confirm_password' | 'phone'
-	message: string
-}
+const REQUIRED = 'Campo obrigatório'
+const validation_schema = yup.object().shape({
+	email: yup.string().email('email invalido').required(REQUIRED),
+	name: yup
+		.string()
+		.min(3, ({ min }) => `Nome deve ter no minimo ${min} caracteres`)
+		.required(REQUIRED),
+	password: yup
+		.string()
+		.min(8, ({ min }) => `Senha deve ter no minimo ${min} caracteres`)
+		.required(REQUIRED)
+		.matches(
+			/(?=^.{7,}$)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9])?.*/,
+			'Senha deve contern no minimo 8 caracteres, algarismos, letras maiusculas e minusculas'
+		),
+	confirm_passowrd: yup
+		.string()
+		.required(REQUIRED)
+		.oneOf([yup.ref('password')], 'Senhas não coincidem'),
+	phone: yup
+		.string()
+		.required(REQUIRED)
+		.matches(
+			/^\s*(\d{2}|\d{0})[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/,
+			'numero invalido'
+		),
+})
 
 const SignUp: React.FC = () => {
 	const nav = useNavigation()
 	const [register] = useRegisterMutation()
 	const [_, set_user] = useContext(UserContext)
 
-	const [errors, set_errors] = useState<Error[]>([])
-	const [form_data, set_form_data] = useState<FormData>({
-		email: '',
-		name: '',
-		password: '',
-		confirm_password: '',
-		phone: '',
-	})
-
-	const submit = async () => {
+	const submit = async (form_data: FormData) => {
 		const res = await register({
 			variables: {
-				data: form_data,
+				data: {
+					email: form_data.email,
+					name: form_data.name,
+					password: form_data.password,
+					phone: form_data.phone,
+				},
 			},
 		})
 		if (res.errors) {
@@ -61,77 +82,96 @@ const SignUp: React.FC = () => {
 			<Logo />
 			<Heading>Cadastro</Heading>
 			<WaterMark />
-			<FormContainer>
-				<Input
-					label="Nome de usuário"
-					placeholder="John Doe"
-					error={errors.find((err) => err.input === 'name')?.message}
-					onChangeText={(val) => {
-						if (
-							val.length <= 3 &&
-							!errors.find((err) => err.input === 'name')
-						) {
-							set_errors([
-								...errors,
-								{
-									input: 'name',
-									message: 'nome muito curto',
-								},
-							])
-						} else
-							set_errors(
-								errors.filter((err) => err.input !== 'name')
-							)
-						set_form_data({ ...form_data, name: val })
-					}}
-				/>
-				<Input
-					label="Email"
-					placeholder="johndoe@mail.com"
-					error={errors.find((err) => err.input === 'email')?.message}
-					onChangeText={(val) =>
-						set_form_data({ ...form_data, email: val })
-					}
-				/>
-				<Input
-					label="Celular"
-					placeholder="johndoe@mail.com"
-					error={errors.find((err) => err.input === 'phone')?.message}
-					onChangeText={(val) =>
-						set_form_data({ ...form_data, phone: val })
-					}
-				/>
-				<Input
-					label="Senha"
-					secureTextEntry={true}
-					placeholder="senha super secreta"
-					error={
-						errors.find((err) => err.input === 'password')?.message
-					}
-					onChangeText={(val) =>
-						set_form_data({ ...form_data, password: val })
-					}
-				/>
-				<Input
-					label="Confirmar Senha"
-					secureTextEntry={true}
-					placeholder="segredo!"
-					error={
-						errors.find((err) => err.input === 'confirm_password')
-							?.message
-					}
-					onChangeText={(val) =>
-						set_form_data({ ...form_data, confirm_password: val })
-					}
-				/>
-				<Button
-					label="Criar uma conta"
-					backgroundColor={theme.colors.blue3}
-					color={theme.colors.light3}
-					style={{ marginTop: 10 }}
-					onPress={submit}
-				/>
-			</FormContainer>
+			<Formik
+				initialValues={{
+					email: '',
+					name: '',
+					password: '',
+					confirm_password: '',
+					phone: '',
+				}}
+				// doesn't work for some reason
+				onSubmit={() => {}}
+				validationSchema={validation_schema}
+			>
+				{({
+					handleChange,
+					handleBlur,
+					handleSubmit,
+					values,
+					errors,
+				}) => (
+					<FormContainer>
+						<Input
+							label="Nome de usuário"
+							placeholder="John Doe"
+							onChangeText={handleChange('name')}
+							onBlur={handleBlur('name')}
+							value={values.name}
+							error={
+								values.name.length > 0 ? errors.name : undefined
+							}
+						/>
+						<Input
+							label="Email"
+							placeholder="johndoe@mail.com"
+							onChangeText={handleChange('email')}
+							onBlur={handleBlur('email')}
+							value={values.email}
+							error={
+								values.email.length > 0
+									? errors.email
+									: undefined
+							}
+						/>
+						<Input
+							label="Celular"
+							placeholder="+55 (XX) XXXXX-XXXX"
+							onChangeText={handleChange('phone')}
+							onBlur={handleBlur('phone')}
+							value={values.phone}
+							error={
+								values.phone.length > 0
+									? errors.phone
+									: undefined
+							}
+						/>
+						<Input
+							label="Senha"
+							secureTextEntry={true}
+							placeholder="senha super secreta"
+							onChangeText={handleChange('password')}
+							onBlur={handleBlur('password')}
+							value={values.password}
+							error={
+								values.password.length > 0
+									? errors.password
+									: undefined
+							}
+						/>
+						<Input
+							label="Confirmar Senha"
+							secureTextEntry={true}
+							placeholder="segredo!"
+							onChangeText={handleChange('confirm_password')}
+							onBlur={handleBlur('confirm_password')}
+							value={values.confirm_password}
+							error={
+								values.confirm_password.length > 0
+									? errors.confirm_password
+									: undefined
+							}
+						/>
+						<Button
+							label="Criar uma conta"
+							backgroundColor={theme.colors.blue3}
+							color={theme.colors.light3}
+							style={{ marginTop: 10 }}
+							onPress={() => submit(values)}
+						/>
+					</FormContainer>
+				)}
+			</Formik>
 		</Container>
 	)
 }

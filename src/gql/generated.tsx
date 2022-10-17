@@ -43,6 +43,7 @@ export type Mutation = {
   createUser: User;
   deleteDoctor: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
+  login: User;
 };
 
 
@@ -63,6 +64,12 @@ export type MutationDeleteDoctorArgs = {
 
 export type MutationDeleteUserArgs = {
   id: Scalars['String'];
+};
+
+
+export type MutationLoginArgs = {
+  password: Scalars['String'];
+  username: Scalars['String'];
 };
 
 export type Query = {
