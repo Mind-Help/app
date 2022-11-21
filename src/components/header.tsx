@@ -1,13 +1,22 @@
 import styled from 'styled-components/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
-import Gear from '$assets/vectors/gear.svg'
+import GearSvg from '$assets/vectors/gear.svg'
 import Pfp from './pfp'
 
 const Header: React.FC = () => {
+	const nav = useNavigation()
+	const route = useRoute()
+
 	return (
 		<Container>
 			<Pfp />
-			<Gear />
+			<GearSvg
+				onPress={() => {
+					if (route.name === 'settings') nav.goBack()
+					else nav.navigate('settings')
+				}}
+			/>
 		</Container>
 	)
 }

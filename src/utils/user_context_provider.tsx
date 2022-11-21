@@ -1,11 +1,16 @@
+import { UserStatus } from '$gql/generated'
 import { createContext, Dispatch, SetStateAction, useState } from 'react'
-import { UserStatus } from 'src/gql/generated'
 
-type User = {
+export type User = {
+	id: any
 	name: string
 	email: string
 	status: UserStatus
-	phone: string
+	phone?: string
+	photo?: string
+	resume?: string
+	createdAt?: Date
+	updatedAt?: Date
 }
 
 type UserState = [User, Dispatch<SetStateAction<User>>]
@@ -17,7 +22,7 @@ type Props = {
 }
 
 export default ({ children }: Props) => (
-	<UserContext.Provider value={useState<User>({} as User)}>
+	<UserContext.Provider value={useState<User>(null!)}>
 		{children}
 	</UserContext.Provider>
 )

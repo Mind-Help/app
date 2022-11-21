@@ -4,7 +4,10 @@ export declare global {
 			first: undefined
 			signin: undefined
 			signup: undefined
+			google_signup: undefined
 			home: undefined
+			call: undefined
+			settings: undefined
 		}
 	}
 }

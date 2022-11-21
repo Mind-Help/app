@@ -1,8 +1,11 @@
-import Button from '$components/button'
-import { Input } from '$components/input'
-import { WaterMark } from '$components/water_mark'
-import { theme } from '$utils/theme'
 import { useNavigation } from '@react-navigation/native'
+
+import Button from '$components/button'
+import Input from '$components/input'
+import WaterMark from '$components/water_mark'
+
+import { theme } from '$utils/theme'
+
 import { Container, FormContainer, Heading, Logo } from './styles'
 
 const SignIn: React.FC = () => {

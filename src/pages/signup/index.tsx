@@ -6,8 +6,9 @@ import * as yup from 'yup'
 import { useRegisterMutation } from '$gql/generated'
 
 import Button from '$components/button'
-import { Input } from '$components/input'
-import { WaterMark } from '$components/water_mark'
+import Input from '$components/input'
+import WaterMark from '$components/water_mark'
+
 import { theme } from '$utils/theme'
 import { UserContext } from '$utils/user_context_provider'
 
@@ -61,7 +62,6 @@ const SignUp: React.FC = () => {
 					email: form_data.email,
 					name: form_data.name,
 					password: form_data.password,
-					phone: form_data.phone,
 				},
 			},
 		})
@@ -70,10 +70,12 @@ const SignUp: React.FC = () => {
 			res.errors.forEach((err) => console.log(err))
 			return
 		}
-		set_user({
-			...form_data,
-			status: res.data?.createUser.status!,
-		})
+		// if (res.data)
+		// 	set_user({
+		// 		...form_data,
+		// 		status: res.data?.createUser.status!,
+		// 	})
+		else console.log({ res, error: 'error at signup submit form' })
 		nav.navigate('home')
 	}
 
@@ -97,9 +99,11 @@ const SignUp: React.FC = () => {
 				{({
 					handleChange,
 					handleBlur,
-					handleSubmit,
+					// handleSubmit,
 					values,
 					errors,
+					isSubmitting,
+					isValid,
 				}) => (
 					<FormContainer>
 						<Input
@@ -124,7 +128,7 @@ const SignUp: React.FC = () => {
 									: undefined
 							}
 						/>
-						<Input
+						{/*<Input
 							label="Celular"
 							placeholder="+55 (XX) XXXXX-XXXX"
 							onChangeText={handleChange('phone')}
@@ -135,7 +139,7 @@ const SignUp: React.FC = () => {
 									? errors.phone
 									: undefined
 							}
-						/>
+						/>*/}
 						<Input
 							label="Senha"
 							secureTextEntry={true}
@@ -167,6 +171,7 @@ const SignUp: React.FC = () => {
 							backgroundColor={theme.colors.blue3}
 							color={theme.colors.light3}
 							style={{ marginTop: 10 }}
+							disabled={isSubmitting}
 							onPress={() => submit(values)}
 						/>
 					</FormContainer>

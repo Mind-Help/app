@@ -2,9 +2,11 @@ import { Dimensions } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 
-export const WaterMark: React.FC = () => {
+const WaterMark: React.FC = () => {
 	return <Text>MindHelp&copy;</Text>
 }
+
+export default WaterMark
 
 const Text = styled.Text`
 	position: absolute;

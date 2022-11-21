@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "851116860571",
+    "project_id": "tcc-concordia",
+    "storage_bucket": "tcc-concordia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851116860571:android:12042a0aaa737a0235d23e",
+        "android_client_info": {
+          "package_name": "com.mindhelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851116860571-iisnfc78ucq1pdtaer6o40a625en780i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindhelp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "851116860571-id0sinpcu8hmjn1o09mc464gf2uqsu18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfvneM8RMMk-hGQonM8XlsFl0EtjV_AmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851116860571-id0sinpcu8hmjn1o09mc464gf2uqsu18.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,7 +8,7 @@ type Tprops = TextInputProps & {
 	error?: string
 }
 
-export const Input: React.FC<Tprops> = ({ label, error, ...props }) => {
+const Input: React.FC<Tprops> = ({ label, error, ...props }) => {
 	return (
 		<Container>
 			<Label>{label}</Label>
@@ -21,6 +21,8 @@ export const Input: React.FC<Tprops> = ({ label, error, ...props }) => {
 		</Container>
 	)
 }
+
+export default Input
 
 const Container = styled.View`
 	margin-bottom: 18px;

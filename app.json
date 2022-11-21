@@ -1,10 +1,4 @@
 {
-  "expo": {
-    "name": "mindhelp",
-    "slug": "mindhelp",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  }
+  "name": "mindhelp",
+  "displayName": "mindhelp"
 }

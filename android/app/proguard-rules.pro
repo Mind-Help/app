@@ -7,8 +7,10 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
-# react-native-reanimated
--keep class com.swmansion.reanimated.** { *; }
--keep class com.facebook.react.turbomodule.** { *; }
-
 # Add any project specific keep options here:
+
+# required by webrtc
+-keep class org.webrtc.** { *; }
+
+# to avoid runtime errors related to react-native-svg
+-keep public class com.horcrux.svg.** {*;}

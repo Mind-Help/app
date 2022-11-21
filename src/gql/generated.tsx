@@ -17,38 +17,26 @@ export type Scalars = {
   UUID: any;
 };
 
-export type Doctor = {
-  __typename?: 'Doctor';
-  createdAt: Scalars['DateTime'];
-  email: Scalars['String'];
-  id: Scalars['UUID'];
-  name: Scalars['String'];
-  patientsHistory: Array<Scalars['String']>;
-  phone: Scalars['String'];
-  resume: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
-};
-
-export type DoctorIt = {
+export type GoogleUserIt = {
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
-  phone: Scalars['String'];
-  resume: Scalars['String'];
+  photo?: InputMaybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createDoctor: Doctor;
+  createDoctor: User;
   createUser: User;
   deleteDoctor: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
   login: User;
+  signUpGoogle: User;
 };
 
 
 export type MutationCreateDoctorArgs = {
-  data: DoctorIt;
+  data: Scalars['String'];
 };
 
 
@@ -58,47 +46,52 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationDeleteDoctorArgs = {
-  id: Scalars['String'];
+  where: Where;
 };
 
 
 export type MutationDeleteUserArgs = {
-  id: Scalars['String'];
+  where: Where;
 };
 
 
 export type MutationLoginArgs = {
+  email: Scalars['String'];
   password: Scalars['String'];
-  username: Scalars['String'];
+};
+
+
+export type MutationSignUpGoogleArgs = {
+  data: GoogleUserIt;
 };
 
 export type Query = {
   __typename?: 'Query';
-  getDoctor: Doctor;
-  getDoctors: Array<Doctor>;
+  getDoctor: User;
+  getDoctors: Array<User>;
   getUser: User;
   getUsers: Array<User>;
 };
 
 
 export type QueryGetDoctorArgs = {
-  id: Scalars['UUID'];
+  where: Where;
 };
 
 
 export type QueryGetUserArgs = {
-  id: Scalars['UUID'];
+  where: Where;
 };
 
 export type User = {
   __typename?: 'User';
   createdAt: Scalars['DateTime'];
-  docsHistory: Array<Scalars['String']>;
   email: Scalars['String'];
   id: Scalars['UUID'];
   name: Scalars['String'];
-  phone: Scalars['String'];
-  respDocId?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  photo?: Maybe<Scalars['String']>;
+  resume?: Maybe<Scalars['String']>;
   status: UserStatus;
   updatedAt: Scalars['DateTime'];
 };
@@ -107,14 +100,30 @@ export type UserIt = {
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
-  phone: Scalars['String'];
-  status?: InputMaybe<UserStatus>;
 };
 
 export enum UserStatus {
   Normal = 'NORMAL',
   Pro = 'PRO'
 }
+
+export type Where = {
+  field: WhereFields;
+  value: Scalars['String'];
+};
+
+export enum WhereFields {
+  Email = 'EMAIL',
+  Id = 'ID',
+  Phone = 'PHONE'
+}
+
+export type SignUpGoogleMutationVariables = Exact<{
+  data: GoogleUserIt;
+}>;
+
+
+export type SignUpGoogleMutation = { __typename?: 'Mutation', signUpGoogle: { __typename?: 'User', id: any, name: string, email: string, phone?: string | null, photo?: string | null, resume?: string | null, status: UserStatus, createdAt: any, updatedAt: any } };
 
 export type RegisterMutationVariables = Exact<{
   data: UserIt;
@@ -124,6 +133,47 @@ export type RegisterMutationVariables = Exact<{
 export type RegisterMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', status: UserStatus } };
 
 
+export const SignUpGoogleDocument = gql`
+    mutation SignUpGoogle($data: GoogleUserIT!) {
+  signUpGoogle(data: $data) {
+    id
+    name
+    email
+    phone
+    photo
+    resume
+    status
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type SignUpGoogleMutationFn = Apollo.MutationFunction<SignUpGoogleMutation, SignUpGoogleMutationVariables>;
+
+/**
+ * __useSignUpGoogleMutation__
+ *
+ * To run a mutation, you first call `useSignUpGoogleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignUpGoogleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signUpGoogleMutation, { data, loading, error }] = useSignUpGoogleMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useSignUpGoogleMutation(baseOptions?: Apollo.MutationHookOptions<SignUpGoogleMutation, SignUpGoogleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignUpGoogleMutation, SignUpGoogleMutationVariables>(SignUpGoogleDocument, options);
+      }
+export type SignUpGoogleMutationHookResult = ReturnType<typeof useSignUpGoogleMutation>;
+export type SignUpGoogleMutationResult = Apollo.MutationResult<SignUpGoogleMutation>;
+export type SignUpGoogleMutationOptions = Apollo.BaseMutationOptions<SignUpGoogleMutation, SignUpGoogleMutationVariables>;
 export const RegisterDocument = gql`
     mutation Register($data: UserIT!) {
   createUser(data: $data) {

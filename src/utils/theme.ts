@@ -18,8 +18,8 @@ export const theme = {
 		green: '#A3BE8C',
 	},
 	fonts: {
-		light: 'Poppins_300Light',
-		regular: 'Poppins_400Regular',
-		bold: 'Poppins_700Bold',
+		light: 'Poppins-Light',
+		regular: 'Poppins-Regular',
+		bold: 'Poppins-Bold',
 	},
 }

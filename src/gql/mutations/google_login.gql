@@ -1,0 +1,13 @@
+mutation SignUpGoogle($data: GoogleUserIT!) {
+	signUpGoogle(data: $data) {
+		id
+		name
+		email
+		phone
+		photo
+		resume
+		status
+		createdAt
+		updatedAt
+	}
+}
