@@ -14,6 +14,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: any;
+  JSONObject: any;
   UUID: any;
 };
 
@@ -32,6 +33,7 @@ export type Mutation = {
   deleteUser: Scalars['Boolean'];
   login: User;
   signUpGoogle: User;
+  updateUser: User;
 };
 
 
@@ -65,6 +67,11 @@ export type MutationSignUpGoogleArgs = {
   data: GoogleUserIt;
 };
 
+
+export type MutationUpdateUserArgs = {
+  data: UpdateUserIt;
+};
+
 export type Query = {
   __typename?: 'Query';
   getDoctor: User;
@@ -81,6 +88,11 @@ export type QueryGetDoctorArgs = {
 
 export type QueryGetUserArgs = {
   where: Where;
+};
+
+export type UpdateUserIt = {
+  data: Scalars['JSONObject'];
+  id: Scalars['UUID'];
 };
 
 export type User = {
@@ -130,7 +142,7 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', status: UserStatus } };
+export type RegisterMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: any, status: UserStatus } };
 
 
 export const SignUpGoogleDocument = gql`
@@ -177,6 +189,7 @@ export type SignUpGoogleMutationOptions = Apollo.BaseMutationOptions<SignUpGoogl
 export const RegisterDocument = gql`
     mutation Register($data: UserIT!) {
   createUser(data: $data) {
+    id
     status
   }
 }

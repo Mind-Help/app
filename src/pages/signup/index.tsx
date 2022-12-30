@@ -13,6 +13,7 @@ import { theme } from '$utils/theme'
 import { UserContext } from '$utils/user_context_provider'
 
 import { Container, FormContainer, Heading, Logo } from './styles'
+import { ENDPOINT_URL } from '@env'
 
 type FormData = {
 	name: string
@@ -24,7 +25,7 @@ type FormData = {
 
 const REQUIRED = 'Campo obrigatório'
 const validation_schema = yup.object().shape({
-	email: yup.string().email('email invalido').required(REQUIRED),
+	email: yup.string().email('Email invalido').required(REQUIRED),
 	name: yup
 		.string()
 		.min(3, ({ min }) => `Nome deve ter no minimo ${min} caracteres`)
@@ -46,7 +47,7 @@ const validation_schema = yup.object().shape({
 		.required(REQUIRED)
 		.matches(
 			/^\s*(\d{2}|\d{0})[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/,
-			'numero invalido'
+			'Número invalido'
 		),
 })
 
@@ -54,8 +55,10 @@ const SignUp: React.FC = () => {
 	const nav = useNavigation()
 	const [register] = useRegisterMutation()
 	const [_, set_user] = useContext(UserContext)
+	console.log({ ENDPOINT_URL })
 
 	const submit = async (form_data: FormData) => {
+		nav.navigate('home')
 		const res = await register({
 			variables: {
 				data: {
@@ -68,15 +71,15 @@ const SignUp: React.FC = () => {
 		if (res.errors) {
 			// TODO: handle errors
 			res.errors.forEach((err) => console.log(err))
-			return
+			// return
 		}
-		// if (res.data)
-		// 	set_user({
-		// 		...form_data,
-		// 		status: res.data?.createUser.status!,
-		// 	})
-		else console.log({ res, error: 'error at signup submit form' })
-		nav.navigate('home')
+		if (res.data)
+			set_user({
+				...form_data,
+				id: res.data.createUser.id,
+				status: res.data.createUser.status,
+			})
+		else console.log({ res, error: 'error at signup' })
 	}
 
 	return (

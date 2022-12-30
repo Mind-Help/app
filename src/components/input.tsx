@@ -38,6 +38,7 @@ const Label = styled.Text`
 const TextInput = styled.TextInput<{
 	error?: string
 }>`
+	color: ${({ theme }) => theme.colors.dark2};
 	border: 1px solid
 		${({ error, theme }) => (error ? theme.colors.red : 'transparent')};
 	border-radius: 4px;

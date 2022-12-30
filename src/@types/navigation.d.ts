@@ -6,7 +6,9 @@ export declare global {
 			signup: undefined
 			google_signup: undefined
 			home: undefined
+			chatting: undefined
 			call: undefined
+			chat: undefined
 			settings: undefined
 		}
 	}

@@ -15,14 +15,16 @@ export type User = {
 
 type UserState = [User, Dispatch<SetStateAction<User>>]
 
-export const UserContext = createContext<UserState>({} as UserState)
+export const UserContext = createContext<UserState>(undefined!)
 
 type Props = {
 	children: React.ReactNode
 }
 
-export default ({ children }: Props) => (
+const UserContextProvider: React.FC<Props> = ({ children }) => (
 	<UserContext.Provider value={useState<User>(null!)}>
 		{children}
 	</UserContext.Provider>
 )
+
+export default UserContextProvider

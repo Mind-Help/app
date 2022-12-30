@@ -33,4 +33,10 @@ export const ModalLoading = styled.ActivityIndicator`
 	margin: 12px 0;
 `
 
+export const ModalError = styled.Text`
+	color: ${({ theme }) => theme.colors.red};
+	font-family: ${({ theme }) => theme.fonts.bold};
+	font-size: 16px;
+`
+
 export const ModalButton = styled(TextButton)``

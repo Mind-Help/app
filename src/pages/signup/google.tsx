@@ -55,6 +55,7 @@ const Google: React.FC = () => {
 			createdAt: undefined,
 			updatedAt: undefined,
 		}
+		nav.navigate('home')
 		const res = await register({
 			variables: {
 				data: {
@@ -72,7 +73,6 @@ const Google: React.FC = () => {
 		}
 		if (res.data) set_user(new_user)
 		else console.log({ res, error: 'error at signup form' })
-		nav.navigate('home')
 	}
 
 	return (
